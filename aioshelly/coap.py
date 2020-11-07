@@ -24,7 +24,7 @@ class CoapMessage:
 
         if self.code in (30, 69):
             try:
-                self.payload = json.loads(payload.rsplit(b"\xff", 1)[1].decode())
+                self.payload = json.loads(payload.rsplit(b"\xff", 1)[1].decode().replace("][", "],[").replace("}{", "},{"))
             except json.decoder.JSONDecodeError:
                 _LOGGER.error(
                     "CoAP message of type %s from host %s is not a valid JSON format: %s",
